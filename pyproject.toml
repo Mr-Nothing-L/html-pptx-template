@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "html-pptx-template"
+version = "0.1.0"
+description = "Extract webpage styles into reusable PPT templates"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.0",
+    "playwright>=1.40.0",
+    "python-pptx>=0.6.23",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0",
+    "colour-science>=0.4.3",
+    "Pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+html-pptx = "html_pptx_template.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

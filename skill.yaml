@@ -1,0 +1,55 @@
+name: html-pptx-template
+description: Extract webpage visual styles into reusable PPT templates and generate styled PPTX presentations
+
+commands:
+  create-template:
+    description: Create a new PPT template from a webpage URL
+    prompt: >
+      Create a new PPT template by extracting the visual style from the given URL.
+      Run: html-pptx create-template {{url}} --name {{name}}
+      Report the created template ID, name, primary color, and font.
+      If name is not provided, use the page title.
+    arguments:
+      - name: url
+        description: The webpage URL to extract style from
+        required: true
+      - name: name
+        description: Name for the new template
+        required: false
+
+  generate-ppt:
+    description: Generate a PPTX presentation from user content
+    prompt: >
+      Generate a PPTX file from the user's content using a template.
+      First, check if a template was specified. If not, check for a default template.
+      If no default exists or the user wants to choose, list available templates
+      and use AskUserQuestion to let the user pick one with arrow keys.
+      Once the template is chosen, save the user's content to a temporary markdown file
+      and run: html-pptx generate-ppt {{content_file}} --template {{template_id}} --output {{output}}
+      Report the output file path and number of slides generated.
+    arguments:
+      - name: content
+        description: Markdown content for the presentation
+        required: true
+      - name: template
+        description: Template ID to use (optional)
+        required: false
+      - name: output
+        description: Output PPTX filename
+        required: false
+
+  list-templates:
+    description: List all available PPT templates
+    prompt: >
+      Run: html-pptx list-templates
+      Show the list of available templates with name, source URL, and creation date.
+
+  set-default:
+    description: Set the default template
+    prompt: >
+      Set the given template as the default.
+      Run: html-pptx set-default {{template_id}}
+    arguments:
+      - name: template_id
+        description: Template ID to set as default
+        required: true
